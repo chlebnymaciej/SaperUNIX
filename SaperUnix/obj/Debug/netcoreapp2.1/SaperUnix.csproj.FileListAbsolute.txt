@@ -1,0 +1,11 @@
+D:\CS\SaperUnix\SaperUnix\bin\Debug\netcoreapp2.1\SaperUnix.deps.json
+D:\CS\SaperUnix\SaperUnix\bin\Debug\netcoreapp2.1\SaperUnix.runtimeconfig.json
+D:\CS\SaperUnix\SaperUnix\bin\Debug\netcoreapp2.1\SaperUnix.runtimeconfig.dev.json
+D:\CS\SaperUnix\SaperUnix\bin\Debug\netcoreapp2.1\SaperUnix.dll
+D:\CS\SaperUnix\SaperUnix\bin\Debug\netcoreapp2.1\SaperUnix.pdb
+D:\CS\SaperUnix\SaperUnix\obj\Debug\netcoreapp2.1\SaperUnix.csprojAssemblyReference.cache
+D:\CS\SaperUnix\SaperUnix\obj\Debug\netcoreapp2.1\SaperUnix.csproj.CoreCompileInputs.cache
+D:\CS\SaperUnix\SaperUnix\obj\Debug\netcoreapp2.1\SaperUnix.AssemblyInfoInputs.cache
+D:\CS\SaperUnix\SaperUnix\obj\Debug\netcoreapp2.1\SaperUnix.AssemblyInfo.cs
+D:\CS\SaperUnix\SaperUnix\obj\Debug\netcoreapp2.1\SaperUnix.dll
+D:\CS\SaperUnix\SaperUnix\obj\Debug\netcoreapp2.1\SaperUnix.pdb
