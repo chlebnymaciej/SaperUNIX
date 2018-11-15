@@ -69,14 +69,20 @@ namespace SaperUnix
 
             static void Show(Pole[,] field)
             {
+            Console.Write("  ");
+                for (int i = 0; i < 10; i++)
+                Console.Write(i+" ");
+                Console.Write("\n");
+
                 for (int i = 0; i < 10; i++)
                 {
+                Console.Write(i + " ");
                     for (int j = 0; j < 10; j++)
                     {
                         if (field[i, j].hide)
-                            Console.Write(field[i, j].value);
+                            Console.Write(field[i, j].value+" ");
                         else
-                            Console.Write('#');
+                            Console.Write("# ");
                     }
                     Console.Write("\n");
                 }
