@@ -142,10 +142,11 @@ namespace SaperUnix
                     {
                         Console.WriteLine(e.Message);
                         Console.WriteLine("Bledne dane jeszcze raz");
+                        continue;
                     }
 
 
-                } while (x > 9);
+                } while (x > 9 && x<0);
 
                 return x;
             }
