@@ -10,6 +10,7 @@ namespace SaperUnix
             public int value;
             public bool hide;
         }
+
         class Program
         {
             static void MinesSet(Pole[,] field)
@@ -130,20 +131,23 @@ namespace SaperUnix
                 do
                 {
                     try
-                    {
-                        Console.Write(message);
-
-                        x = int.Parse(Console.ReadLine());
+                    {  
+                            Console.Write(message);
+                            x = int.Parse(Console.ReadLine());
                     }
                     catch (FormatException e)
                     {
                         Console.WriteLine(e.Message);
                         Console.WriteLine("Bledne dane jeszcze raz");
-                        continue;
+                        return 5000;                     
                     }
 
-
-                } while (x > 9 && x<0);
+                    if (x<0)
+                    {
+                    Console.WriteLine("błedne dane wartosc powinna byc wieksza lub rowna od 0");
+                        return 5000;
+                    }
+                } while (x > 9);
 
                 return x;
             }
@@ -162,9 +166,17 @@ namespace SaperUnix
                     }
 
                     Console.WriteLine("------------------------------------");
-                    x = InputX("x : ");
+                    do
+                    {
+                        x = InputX("x : ");
+                    } while (x == 5000);
+
+                do
+                {
                     y = InputX("y : ");
-                    change(field, x, y);
+                } while (x == 5000);
+
+                change(field, x, y);
                     Console.Clear();
                     Show(field);
 
