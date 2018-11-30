@@ -9,6 +9,7 @@ namespace SaperUnix
         {
             public int value;
             public bool hide;
+            public bool setM;
         }
 
         class Program
@@ -50,6 +51,7 @@ namespace SaperUnix
                     {
                         field[i, j].value = 0;
                         field[i, j].hide = false;
+                        field[i, j].setM = false;
                     }
             }
 
@@ -67,21 +69,26 @@ namespace SaperUnix
 
             static void Show(Pole[,] field, int xBound, int yBound)
             {
-            Console.Write("   ");
+                Console.Write("   ");
+
                 for (int i = 0; i < yBound; i++)
-                if(i<10)Console.Write(i+"  ");
-                else Console.Write(i + " ");
-            Console.Write("\n");
+                    if(i<10)Console.Write(i+"  ");
+                    else Console.Write(i + " ");
+
+                Console.Write("\n");
 
                 for (int i = 0; i < xBound; i++)
                 {
                     if(i<10) Console.Write(i + "  ");
                     else Console.Write(i + " ");
 
-                    for (int j = 0; j < yBound; j++)
+                        for (int j = 0; j < yBound; j++)
                         {
-                            if (field[i, j].hide)
-                                Console.Write(field[i, j].value+"  ");
+                            if (field[i, j].hide || field[i, j].setM)
+                                if(field[i, j].hide)
+                                    Console.Write(field[i, j].value+"  ");
+                                else
+                                    Console.Write("M  ");
                             else
                                 Console.Write("#  ");
                         }
@@ -94,22 +101,25 @@ namespace SaperUnix
                 field[x, y].hide = true;
             }
 
-            static void CheckWin(Pole[,] field)
+            static void CheckWin(Pole[,] field, int xBound, int yBound)
             {
-                int count = 0, hidden = 0;
+                int count = 0, hidden = 0, markedMines=0;
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < xBound; i++)
                 {
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < yBound; j++)
                     {
                         if (!field[i, j].hide)
                             hidden++;
                         if (!field[i, j].hide && field[i, j].value == 9)
                             count++;
+                        if (field[i, j].setM && field[i, j].value == 9)
+                            markedMines++;
                     }
                 }
-
-                if (count == 10 && hidden == count)
+                if(markedMines==10)
+                Console.WriteLine("Gratulacje wygrana!!");
+                else if (count == 10 && hidden == count)
                     Console.WriteLine("Gratulacje wygrana!!");
                 else
                     Console.WriteLine("Przegrana!!");
@@ -153,6 +163,12 @@ namespace SaperUnix
 
                 return x;
             }
+
+            static void changeMarkMine(Pole [,] field, int x, int y)
+            {
+                field[x, y].setM = true;
+            }
+
             static bool Moves(Pole[,] field, int xBound, int yBound)
             {
                 int x = 0, y = 0;
@@ -163,29 +179,63 @@ namespace SaperUnix
 
                     if (end.Equals("k"))
                     {
-                        CheckWin(field);
+                        CheckWin(field, xBound, yBound);
+
                         return false;
+                    }
+                    Console.Write("odkrywamy czy zaznaczamy mine? [o/z]\t");
+                    String zaznacz = Console.ReadLine();
+
+                    if (zaznacz.Equals("z"))
+                    {
+                        markMine(field, xBound, yBound);
+                        Console.Clear();
+
+                        Show(field, xBound, yBound);
+
+                    continue;
                     }
 
                     Console.WriteLine("------------------------------------");
+
                     do
                     {
                         x = InputX("x : ", xBound);
                     } while (x == 5000);
 
-                do
-                {
-                    y = InputX("y : ", yBound);
-                } while (x == 5000);
+                    do
+                    {
+                        y = InputX("y : ", yBound);
+                    } while (x == 5000);
 
-                change(field, x, y);
+                    change(field, x, y);
                     Console.Clear();
+
                     Show(field, xBound, yBound);
 
                 } while (CheckPlay(field, x, y));
 
                 return CheckPlay(field, x, y);
             }
+
+            static void markMine(Pole [,] field, int xBound, int yBound)
+            {
+                int x = 0;
+                do
+                {
+                    x = InputX(" Oznaczamy x : ", xBound);
+                } while (x == 5000);
+
+                int y = 0;
+                do
+                {
+                    y = InputX("oznaczamy y : ", yBound);
+                } while (x == 5000);
+
+                changeMarkMine(field, x, y);
+
+            }
+
             static void Saper(/*Pole[,] field,*/ int xBound, int yBound)
             {
                 
@@ -195,7 +245,7 @@ namespace SaperUnix
                     Pole[,] field = new Pole[xBound, yBound];
                     do
                     {
-                        ZeroSet(field, xBound,yBound);
+                        ZeroSet(field, xBound, yBound);
                         MinesSet(field, xBound, yBound);
                         Check9(field, xBound, yBound);
                         Show(field, xBound, yBound);
