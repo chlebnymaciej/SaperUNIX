@@ -7,11 +7,8 @@ namespace SaperUnix
     
         struct Pole
         {
-
             public int value;
             public bool hide;
-
-
         }
         class Program
         {
