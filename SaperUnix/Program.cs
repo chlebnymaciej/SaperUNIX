@@ -1,10 +1,11 @@
 ﻿using System;
 
+
 namespace SaperUnix
 {
+
     
-    
-    
+
         struct Pole
         {
             public int value;
@@ -14,7 +15,8 @@ namespace SaperUnix
 
         class Program
         {
-            static void MinesSet(Pole[,] field, int xBound, int yBound)
+            
+            static void MinesSet(Pole[,] field, int xBound, int yBound, int MinesCount)
             {
                 int mines = 0;
                 do
@@ -41,7 +43,7 @@ namespace SaperUnix
 
                         mines++;
                     }
-                } while (mines < 10);
+                } while (mines < MinesCount);
             }
 
             static void ZeroSet(Pole[,] field, int xBound, int yBound)
@@ -101,7 +103,7 @@ namespace SaperUnix
                 field[x, y].hide = true;
             }
 
-            static void CheckWin(Pole[,] field, int xBound, int yBound)
+            static void CheckWin(Pole[,] field, int xBound, int yBound, int MinesCount)
             {
                 int count = 0, hidden = 0, markedMines=0;
 
@@ -117,9 +119,9 @@ namespace SaperUnix
                             markedMines++;
                     }
                 }
-                if(markedMines==10)
+                if(markedMines==MinesCount)
                 Console.WriteLine("Gratulacje wygrana!!");
-                else if (count == 10 && hidden == count)
+                else if (count == MinesCount && hidden == count)
                     Console.WriteLine("Gratulacje wygrana!!");
                 else
                     Console.WriteLine("Przegrana!!");
@@ -169,7 +171,7 @@ namespace SaperUnix
                 field[x, y].setM = true;
             }
 
-            static bool Moves(Pole[,] field, int xBound, int yBound)
+            static bool Moves(Pole[,] field, int xBound, int yBound, int MinesCount)
             {
                 int x = 0, y = 0;
                 do
@@ -179,7 +181,7 @@ namespace SaperUnix
 
                     if (end.Equals("k"))
                     {
-                        CheckWin(field, xBound, yBound);
+                        CheckWin(field, xBound, yBound, MinesCount);
 
                         return false;
                     }
@@ -239,17 +241,19 @@ namespace SaperUnix
             static void Saper(/*Pole[,] field,*/ int xBound, int yBound)
             {
                 
-                bool game = true;
+                    bool game = true;
                 
                     InitGame(ref xBound, ref yBound);
                     Pole[,] field = new Pole[xBound, yBound];
+                    int MinesCount = xBound * yBound / 10;
+
                     do
                     {
-                        ZeroSet(field, xBound, yBound);
-                        MinesSet(field, xBound, yBound);
-                        Check9(field, xBound, yBound);
-                        Show(field, xBound, yBound);
-                        Moves(field, xBound, yBound);
+                        ZeroSet(field, xBound, yBound);// zeruje strukture
+                        MinesSet(field, xBound, yBound, MinesCount);//ustawia miny
+                        Check9(field, xBound, yBound);//zmienia wieksze od 9 na 9
+                        Show(field, xBound, yBound);//pokazuje pole
+                        Moves(field, xBound, yBound, MinesCount);//robienie ruchow samych w sobie
                         
                         for (int i = 0; i < xBound; i++)
                         {
