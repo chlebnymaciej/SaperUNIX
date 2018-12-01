@@ -87,8 +87,11 @@ namespace SaperUnix
                         for (int j = 0; j < yBound; j++)
                         {
                             if (field[i, j].hide || field[i, j].setM)
-                                if(field[i, j].hide)
-                                    Console.Write(field[i, j].value+"  ");
+                                if (field[i, j].hide)
+                                    if (field[i, j].value != 0)
+                                        Console.Write(field[i, j].value + "  ");
+                                    else
+                                        Console.Write("   ");
                                 else
                                     Console.Write("M  ");
                             else
@@ -146,7 +149,7 @@ namespace SaperUnix
                 {
                     try
                     {  
-                            Console.Write(message);
+                            Console.Write(message);      
                             x = int.Parse(Console.ReadLine());
                     }
                     catch (FormatException e)
@@ -158,7 +161,7 @@ namespace SaperUnix
 
                     if (x<0)
                     {
-                    Console.WriteLine("błedne dane wartosc powinna byc wieksza lub rowna od 0");
+                        Console.WriteLine("błedne dane wartosc powinna byc wieksza lub rowna od 0");
                         return 5000;
                     }
                 } while (x > X);
@@ -208,7 +211,7 @@ namespace SaperUnix
                     do
                     {
                         y = InputX("y : ", yBound);
-                    } while (x == 5000);
+                    } while (y == 5000);
 
                     change(field, x, y);
                     Console.Clear();
